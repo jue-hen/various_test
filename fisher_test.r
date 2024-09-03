@@ -30,8 +30,9 @@ fish_test_calculate <- function(data, var1, var2){
         fish_res[num,2] <- var2[j]
         fish_res[num,3] <- p_val
         fish_res[num,4] <- OR_val
+
+        num = num + 1
       }
-      num = num + 1
     }
     
     fish_res$fdr <- p.adjust(fish_res$p, method = "fdr"))
