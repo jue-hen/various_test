@@ -35,7 +35,7 @@ wilcox_text <- function(data, group, var){
 }
 
 
-
+###单个分组，多个不同的连续变量
 extract_dat <- function(dat){
   dat$genotype <- ifelse(dat$genotype == "CC", "WT", "MUT")
   table(dat$genotype)
