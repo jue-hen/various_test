@@ -1,6 +1,7 @@
 ###fisher 检验
 library(tidyverse)
 
+###data表示需要进行检验的数据， var1和var2表示需要分析的类别变量
 fish_test_calculate <- function(data, var1, var2){
     fish_res <- as.data.frame(matrix(nrow = length(var1)*length(var2), ncol = 3))
     colnames(fish_res) <- c("var1","var2","p","OR")
