@@ -7,6 +7,7 @@ analysis_dat <- analysis_dat %>%
   mutate_at(vars(pct_col), as.numeric)
 
 ###多个不同分组，多个不同连续变量
+###data表示分析的数据框， group表示不同的类别变量， var表示要分析的连续变量
 wilcox_text <- function(data, group, var){
     wilcox_res <- as.data.frame(matrix(ncol = 3, nrow = length(group)*length(var)))
     colnames(wilcox_res) <- c("group","var","p_val")
@@ -40,6 +41,7 @@ wilcox_text <- function(data, group, var){
 
 
 ###单个分组，多个不同的连续变量
+###dat表示需要分析的数据框，数据框中需要含有genotype该列表示是否为突变个体， var表示需要分析的连续变量
 library(Hmisc)
 extract_dat <- function(dat, var){
   dat$genotype <- ifelse(dat$genotype == "0", "WT", "MUT")
