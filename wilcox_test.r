@@ -16,7 +16,7 @@ wilcox_text <- function(data, group, var){
     for (i in c(1:length(group))) {
       for (j in c(1:length(var))) {
         #print(j)
-        tmp_dat <- analysis_dat[,c(group[i],var[j])]
+        tmp_dat <- data[,c(group[i],var[j])]
         tmp_dat <- na.omit(tmp_dat)
         #tmp_dat <- tmp_dat %>% filter(!is.na(tar_gen[i])) %>% filter(!is.na(tm[j]))
         colnames(tmp_dat) <- c("group","value")
