@@ -3,7 +3,7 @@
 library("survival")
 library("survminer")
     
-
+###data表示数据，里面含有pfs_month,pfs_status, os_month, os_status,   var表示需要分析的变量
 Survival_analysis_calculate <- function(data, var){
     dat <- as.data.frame(matrix(nrow = length(var), ncol = 7))
     colnames(dat) <- c("var","pfs_p","pfs_95%CI","pfs_HR","os_p","os_95%CI","os_HR")
