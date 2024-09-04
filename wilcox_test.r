@@ -20,6 +20,10 @@ wilcox_text <- function(data, group, var){
         #tmp_dat <- tmp_dat %>% filter(!is.na(tar_gen[i])) %>% filter(!is.na(tm[j]))
         colnames(tmp_dat) <- c("group","value")
         tmp_dat$group <- factor(tmp_dat$group) 
+          ## 判断是否有多个分组
+        if (length(levels(tmp_dat$group))) == 1){
+          next
+        }
         re<-wilcox.test(value ~ group, data = tmp_dat, exact=F)
         
         wilcox_res[num,1] <- group[i]
@@ -36,22 +40,23 @@ wilcox_text <- function(data, group, var){
 
 
 ###单个分组，多个不同的连续变量
-extract_dat <- function(dat){
-  dat$genotype <- ifelse(dat$genotype == "CC", "WT", "MUT")
-  table(dat$genotype)
+library(Hmisc)
+extract_dat <- function(dat, var){
+  dat$genotype <- ifelse(dat$genotype == "0", "WT", "MUT")
+  #table(dat$genotype)
   dat$genotype <- factor(dat$genotype, levels = c("WT","MUT"))
   
-  wt <- dat[dat$genotype == "WT",c(15:22)]
+  wt <- dat[dat$genotype == "WT",var]
   wt <- apply(wt, 2, function(x)(impute(x,median)))
   wt_res <- apply(wt, 2, quantile)
-  mut <- dat[dat$genotype == "MUT",c(15:22)]
+  mut <- dat[dat$genotype == "MUT",var]
   mut <- apply(mut, 2, function(x)(impute(x,median)))
   mut_res <- apply(mut, 2, quantile)
   
   res <- as.data.frame(matrix(nrow = 8, ncol = 3,0))
-  rownames(res) <- target_pheno
+  rownames(res) <- var
   colnames(res) <- c("WT","MUT","p")
-  for (i in c(1:length(target_pheno))){
+  for (i in c(1:length(var))){
     wt_tmp1 <- wt_res[2,i]
     wt_tmp2 <- wt_res[4,i]
     wt_tmp <- paste(round(wt_tmp1,2),round(wt_tmp2,2), sep = "~")
