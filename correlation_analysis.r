@@ -6,7 +6,7 @@ coefficient_test <- function(exp, target, var, method="pearson"){
     
     for (i in c(1:length(var))) {
       gene_id <- var[i]
-      tmp <- cor.test(exp[,targer], exp[,gene_id], method = ) ###"pearson" "spearman"
+      tmp <- cor.test(exp[,target], exp[,gene_id], method = ) ###"pearson" "spearman"
       res[i,1] <- gene_id
       res[i,2] <- tmp$estimate
       res[i,3] <- tmp$p.value
